@@ -1,6 +1,8 @@
 #ifndef CHIP_8_H
 #define CHIP_8_H
 
+#include "program.hpp"
+
 class Chip8 {
 private:
 	unsigned short I;
@@ -10,7 +12,9 @@ private:
 	unsigned char delay;
 	unsigned char sound;
 
-	int memory[4096];
+	unsigned int cycles = 0;
+
+	unsigned short memory[4096];
 	unsigned char gfx[64 * 32];
 	char V[16];
 	unsigned short stack[16];
@@ -73,14 +77,18 @@ private:
 	void LD_I_Vx(unsigned short op, unsigned char x);
 	void LD_Vx_I(unsigned short op, unsigned char x);
 
+	void opLookUp(unsigned short op);
+
 public:
 	bool drawFlag;
 
 	Chip8();
 
-	void loadProgram(unsigned char *program, int n);
+	void loadProgram(program_t *program);
 
 	void emulateCycle();
+
+	unsigned char getPixel(int x, int y);
 };
 
 #endif
