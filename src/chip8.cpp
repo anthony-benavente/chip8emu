@@ -125,7 +125,7 @@ void Chip8::SYS(unsigned short op) {
 }
 
 void Chip8::CLS() {
-	for (int i = 0; i < 4096; i++) {
+	for (int i = 0; i < 32 * 64; i++) {
 		gfx[i] = 0;
 	}
 	drawFlag = true;
@@ -239,12 +239,14 @@ void Chip8::DRW_Vx_Vy_nibble(unsigned short op, unsigned char x, unsigned char y
 	for (int yline = 0; yline < (op & 0xf); yline++) {
 		pixel = memory[I + yline];
 		for (int xline = 0; xline < 8; xline++) {
-			int idx = (yp + yline) * 64 + (xp + xline);
-			if ((pixel & (0x80 >> xline)) != 0) {
-				if (gfx[idx]) {
-					V[0xf] = 1;
+			if ((yp + yline) < 32 && (xp + xline) < 64) {
+				int idx = (yp + yline) * 64 + (xp + xline);
+				if ((pixel & (0x80 >> xline)) != 0) {
+					if (gfx[idx]) {
+						V[0xf] = 1;
+					}
+					gfx[idx] ^= 1;
 				}
-				gfx[idx] ^= 1;
 			}
 		}
 	}
