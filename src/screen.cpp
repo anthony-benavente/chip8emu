@@ -1,7 +1,11 @@
 #include "screen.hpp"
 
-Screen::Screen(unsigned int width, unsigned int height) {
-	buffer = (int *) malloc(sizeof(int) * width * height);
+#include <cstdlib>
+
+Screen::Screen(unsigned int _width, unsigned int _height) {
+	buffer = (unsigned int *) malloc(sizeof(int) * _width * _height);
+	width = _width;
+	height = _height;
 }
 
 Screen::~Screen() {
