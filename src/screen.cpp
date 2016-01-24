@@ -13,6 +13,8 @@ Screen::Screen(unsigned int _width,
 	width = _width;
 	height = _height;
 	scale = _scale;
+	displayWidth = width * scale;
+	displayHeight = height * scale;
 
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
@@ -23,6 +25,28 @@ Screen::Screen(unsigned int _width,
 
 Screen::~Screen() {
 	free(buffer);
+
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+}
+
+void Screen::initSDL() {
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		printf("Error initialize SDL!!!\n");
+	} else {
+		window = SDL_CreateWindow("Chip8 Emulator - Anthony Benavente",
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+			displayWidth, displayHeight,
+			SDL_WINDOW_SHOWN);
+		if (!window) {
+			printf("Window could not be created!\n", stderr);
+		} else {
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			SDL_RenderClear(renderer);
+			SDL_RenderPresent(renderer);
+		}
+	}
 }
 
 void Screen::setPixel(int x, int y, unsigned int val) {
@@ -33,15 +57,15 @@ unsigned int Screen::getPixel(int x, int y) {
 	return buffer[y * width + x];
 }
 
-void Screen::update(Chip8& cpu) {
+void Screen::update(Chip8 *cpu) {
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
-			setPixel(x, y, cpu.getPixel(x, y) * 0xffffff);
+			setPixel(x, y, cpu->getPixel(x, y) * 0xffffff);
 		}
 	}
 }
 
-void Screen::render(SDL_Renderer *renderer) {
+void Screen::render() {
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
 			int r = (getPixel(x, y) >> 16) & 0xff;
@@ -57,4 +81,5 @@ void Screen::render(SDL_Renderer *renderer) {
 			SDL_RenderFillRect(renderer, &rect);
 		}
 	}
+	SDL_RenderPresent(renderer);
 }

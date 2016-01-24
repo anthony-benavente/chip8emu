@@ -3,6 +3,7 @@
 
 #include "chip8.hpp"
 #include "screen.hpp"
+#include "machine.hpp"
 
 #define SCREEN_WIDTH 64
 #define SCREEN_HEIGHT 32
@@ -24,53 +25,10 @@ int main(int argc, char **argv) {
 	myChip8.loadProgram(program);
 	free_program(program);
 
-	SDL_Window *window = NULL;
-	SDL_Renderer *renderer = NULL;
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		fputs("Failed to initialize SDL!\n", stderr);
-	} else {
-		window = SDL_CreateWindow("Chip8 Emulator - Anthony Benavente",
-			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			display_width, display_height,
-			SDL_WINDOW_SHOWN);
-		if (!window) {
-			fputs("Window could not be created!\n", stderr);
-		} else {
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    		SDL_RenderClear( renderer );
-
-			bool quit = false;
-			SDL_Event e;
-			while (!quit) {
-				while (SDL_PollEvent(&e) != 0) {
-					quit = e.type == SDL_QUIT;
-				}
-
-				update();
-				render(renderer);
-			}
-		}
-	}
-
-   SDL_DestroyWindow( window );
-   SDL_Quit();
+	Machine machine(&myChip8, &screen);
+	machine.start();
 
 	return 0;
-}
-
-void update() {
-	myChip8.emulateCycle();
-	if (myChip8.drawFlag) screen.update(myChip8);
-}
-
-void render(SDL_Renderer *renderer) {
-	if (myChip8.drawFlag) {
-		screen.render(renderer);
-		myChip8.drawFlag = false;
-	}
-	SDL_RenderPresent(renderer);
 }
 
 program_t *getProgram(const char *path) {

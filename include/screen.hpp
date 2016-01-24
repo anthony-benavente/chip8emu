@@ -6,11 +6,19 @@
 class Screen {
 
 private:
+	SDL_Window *window;
+
+	SDL_Renderer *renderer;
+
 	unsigned int width;
 
 	unsigned int height;
 
 	unsigned int scale;
+
+	unsigned int displayWidth;
+
+	unsigned int displayHeight;
 
 public:
 	unsigned int *buffer;
@@ -25,9 +33,11 @@ public:
 
 	unsigned int getPixel(int x, int y);
 
-	void update(Chip8& cpu);
+	void update(Chip8 *cpu);
 
-	void render(SDL_Renderer *);
+	void render();
+
+	void initSDL();
 };
 
 #endif
