@@ -9,8 +9,7 @@ OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS := -g -Wall -std=c++11
 LIB := -lSDL2
 INC := -I include
-
-DIRECTORIES = cpu graphics program system
+DIRECTORIES = $(shell find $(SRCDIR)/* -type d -exec basename {} \;)
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
@@ -18,6 +17,7 @@ $(TARGET): $(OBJECTS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
+	echo $(DIRECTORIES)
 	$(foreach dir, $(DIRECTORIES), mkdir -p $(BUILDDIR)/$(dir);)
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
