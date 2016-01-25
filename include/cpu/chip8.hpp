@@ -1,6 +1,8 @@
 #ifndef CHIP_8_H
 #define CHIP_8_H
 
+#include <stack>
+
 #include "cpu/cpu.hpp"
 #include "program/program.hpp"
 
@@ -18,7 +20,7 @@ private:
 	unsigned short memory[4096];
 	unsigned char gfx[64 * 32];
 	char V[16];
-	unsigned short stack[16];
+	std::stack<unsigned short> stack;
 	bool keys[16];
 
 	unsigned char fontSet[80] = {

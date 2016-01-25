@@ -14,8 +14,6 @@ program_t *getProgram(const char *path) {
 	size_t size = ftell(fp);
 	rewind(fp);
 
-	printf("Program size: %d bytes\n", size);
-
 	program_t *result = (program_t *)malloc(sizeof(program_t));
 	result->data = (unsigned char *) malloc(sizeof(char) * size);
 	result->size = size;

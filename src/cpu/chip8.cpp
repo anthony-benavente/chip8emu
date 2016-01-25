@@ -25,7 +25,6 @@ Chip8::Chip8() {
 
 	for (int i = 0; i < 16; i++) {
 		V[i] = 0;
-		stack[i] = 0;
 		keys[i] = false;
 	}
 
@@ -135,7 +134,8 @@ void Chip8::CLS() {
 }
 
 void Chip8::RET() {
-	pc = stack[--sp];
+	pc = stack.top();
+	stack.pop();
 	pc += 2;
 }
 
@@ -144,7 +144,7 @@ void Chip8::JP_addr(unsigned short op) {
 }
 
 void Chip8::CALL_addr(unsigned short op) {
-	stack[sp++] = pc - 2;
+	stack.push(pc - 2);
 	pc = op & 0xfff;
 }
 
