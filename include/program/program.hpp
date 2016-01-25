@@ -8,4 +8,8 @@ typedef struct {
 	size_t size;
 } program_t;
 
+program_t *getProgram(const char *path);
+
+void free_program(program_t *);
+
 #endif

@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 #include <SDL2/SDL.h>
-#include "chip8.hpp"
+#include "cpu/chip8.hpp"
 
 class Screen {
 

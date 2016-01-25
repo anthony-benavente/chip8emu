@@ -1,5 +1,6 @@
-#include "chip8.hpp"
-#include "program.hpp"
+#include "cpu/chip8.hpp"
+
+#include "program/program.hpp"
 
 #include <iostream>
 #include <stdlib.h>
@@ -30,6 +31,8 @@ Chip8::Chip8() {
 
 	srand(time(NULL));
 }
+
+Chip8::~Chip8() {}
 
 void Chip8::loadProgram(program_t *program) {
 	for (unsigned int i = 0x200; i < 0x200 + program->size; i++) {

@@ -1,8 +1,8 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
-#include "chip8.hpp"
-#include "screen.hpp"
+#include "cpu/chip8.hpp"
+#include "graphics/screen.hpp"
 
 class Machine {
 private:

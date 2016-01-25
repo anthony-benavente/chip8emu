@@ -1,9 +1,9 @@
-#include "screen.hpp"
-#include "chip8.hpp"
+#include "graphics/screen.hpp"
+
+#include "cpu/chip8.hpp"
 
 #include <cstdlib>
 #include <iostream>
-#include <new>
 
 Screen::Screen(unsigned int _width,
 			   unsigned int _height,

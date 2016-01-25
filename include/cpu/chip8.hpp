@@ -1,9 +1,10 @@
 #ifndef CHIP_8_H
 #define CHIP_8_H
 
-#include "program.hpp"
+#include "cpu/cpu.hpp"
+#include "program/program.hpp"
 
-class Chip8 {
+class Chip8 : public Cpu {
 private:
 	unsigned short I;
 	unsigned short pc;
@@ -84,11 +85,13 @@ public:
 
 	Chip8();
 
-	void loadProgram(program_t *program);
+	~Chip8();
 
-	void emulateCycle();
+	void loadProgram(program_t *program) override;
 
-	unsigned char getPixel(int x, int y);
+	void emulateCycle() override;
+
+	unsigned char getPixel(int x, int y) override;
 };
 
 #endif
