@@ -2,7 +2,7 @@
 #define MACHINE_H
 
 #include "cpu/cpu.hpp"
-#include "graphics/screen.hpp"
+#include "gfx/screen.hpp"
 
 class Machine {
 private:

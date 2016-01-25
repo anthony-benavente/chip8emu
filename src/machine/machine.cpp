@@ -1,4 +1,4 @@
-#include "system/machine.hpp"
+#include "machine/machine.hpp"
 
 #include <SDL2/SDL.h>
 

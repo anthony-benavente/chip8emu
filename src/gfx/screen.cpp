@@ -1,4 +1,4 @@
-#include "graphics/screen.hpp"
+#include "gfx/screen.hpp"
 
 #include "cpu/chip8.hpp"
 
