@@ -33,7 +33,7 @@ public:
 
 	unsigned int getPixel(int x, int y);
 
-	void update(Chip8 *cpu);
+	void update(Cpu& cpu);
 
 	void render();
 

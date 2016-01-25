@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 	myChip8.loadProgram(program);
 	free_program(program);
 
-	Machine machine(&myChip8, &screen);
+	Machine machine(myChip8, screen);
 	machine.start();
 
 	return 0;

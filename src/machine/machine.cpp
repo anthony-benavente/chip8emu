@@ -2,14 +2,8 @@
 
 #include <SDL2/SDL.h>
 
-Machine::Machine(Chip8 *_cpu, Screen *_screen) {
-	cpu = _cpu;
-	screen = _screen;
-	quit = false;
-}
-
 void Machine::start() {
-	screen->initSDL();
+	screen.initSDL();
 
 	SDL_Event e;
 	while(!quit) {
@@ -21,7 +15,7 @@ void Machine::start() {
 }
 
 void Machine::cycle() {
-	cpu->emulateCycle();
-	screen->update(cpu);
-	screen->render();
+	cpu.emulateCycle();
+	screen.update(cpu);
+	screen.render();
 }

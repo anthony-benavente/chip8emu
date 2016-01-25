@@ -57,10 +57,10 @@ unsigned int Screen::getPixel(int x, int y) {
 	return buffer[y * width + x];
 }
 
-void Screen::update(Chip8 *cpu) {
+void Screen::update(Cpu& cpu) {
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
-			setPixel(x, y, cpu->getPixel(x, y) * 0xffffff);
+			setPixel(x, y, cpu.getPixel(x, y) * 0xffffff);
 		}
 	}
 }
