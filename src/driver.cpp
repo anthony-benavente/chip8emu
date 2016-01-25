@@ -2,8 +2,8 @@
 #include <SDL2/SDL.h>
 
 #include "cpu/chip8.hpp"
-#include "graphics/screen.hpp"
-#include "system/machine.hpp"
+#include "gfx/screen.hpp"
+#include "machine/machine.hpp"
 #include "program/program.hpp"
 
 #define SCREEN_WIDTH 64
